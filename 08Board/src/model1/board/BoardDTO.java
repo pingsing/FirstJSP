@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+
 public class BoardDTO {
 	private String num;
 	private String title;

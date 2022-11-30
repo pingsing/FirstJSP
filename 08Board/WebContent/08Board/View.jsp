@@ -17,10 +17,11 @@ dao.close();								// DB 연결 해제
 <title>회원제 게시판</title>
 </head>
 <body>
-	<jsp:include page="../Common/Link.jsp">	<!-- 공통 링크 -->
+	<jsp:include page="../Common/Link.jsp" />
 	<h2>회원제 게시판 - 상세보기</h2>
 	<form name="writeFrm">
-		<input type="hidden" name="num" value="<%= num %>" />
+		<input type="hidden" name="num" value="<%= num %>" />	<!-- 공통 링크 -->
+		
 		<table border="1" width="90%">
 			<tr>
 				<td>번호</td>
@@ -36,20 +37,18 @@ dao.close();								// DB 연결 해제
 			</tr>
 			<tr>
 				<td>제목</td>
-				<td colspan="3"><%=dto.getTitle() %></td>
+				<td colspan="3"><%=dto.getTitle().replace("\r\n", "<br/>") %></td>
 			</tr>
 			<tr>
 				<td>내용</td>
 				<td colspan="3" height="100">
-					<%= dto.getContent().replace("\r\n", "<br />") %>
-				</td>
+                	<%= dto.getContent() %></td>
 			</tr>
 			<tr>
 				<td colspan="4" align="center">
 				<%
 				if (session.getAttribute("UserId") != null
-					&& session.getAttribute("UserId").toString().equals(
-															dto.getId())) {
+					&& session.getAttribute("UserId").toString().equals(dto.getId())) {														
 				%>
 				<button type="button" onclick="location.href='Edit.jsp?num<%= dto.getNum() %>';">수정하기</button>
 				<button type="button" onclick="deletePost();">삭제하기</button>
@@ -57,6 +56,7 @@ dao.close();								// DB 연결 해제
 				}
 				%>
 				<button type="button" onclick="location.href='List.jsp';">목록 보기</button>
+				</td>
 			</tr>
 		</table>
 	</form>

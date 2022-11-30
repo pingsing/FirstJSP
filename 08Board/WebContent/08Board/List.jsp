@@ -77,7 +77,7 @@ if (boardLists.isEmpty()) {
 	<tr align="center">
 		<td><%= virtualNum %></td>
 		<td align="left">
-			<a href="View.jsp?num<%= dto.getNum() %>"><%= dto.getTitle() %>
+			<a href="View.jsp?num=<%= dto.getNum() %>"><%= dto.getTitle() %>
 </a>
 		</td>
 		<td align="center"><%= dto.getId() %></td>	<!-- 작성자 아이디 -->
