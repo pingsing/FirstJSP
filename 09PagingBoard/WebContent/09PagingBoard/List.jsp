@@ -3,6 +3,7 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="model1.board.BoardDAO" %>
 <%@ page import="model1.board.BoardDTO" %>
+<%@ page import="utils.BoardPage" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -24,7 +25,7 @@ int totalCount = dao.selectCount(param);	// 게시물 수 확인
 /*** 페이지 처리 start ***/
 // 전체 페이지 수 계산
 int pageSize = Integer.parseInt(application.getInitParameter("POSTS_PER_PAGE"));
-int blockSize = Integer.parseInt(application.getInitParameter("PAGES_PER_BLOCK"));
+int blockPage = Integer.parseInt(application.getInitParameter("PAGES_PER_BLOCK"));
 int totalPage = (int)Math.ceil((double)totalCount / pageSize);	// 전체 페이지 수
 
 // 현재 페이지 확인
@@ -52,7 +53,7 @@ dao.close();
 </head>
 <body>
 	<jsp:include page="../Common/Link.jsp" />	<!-- 공통링크 -->
-	<h2>목록보기(List)</h2>
+	<h2>목록보기(List) - 현재 페이지 : <%= pageNum %> (전체 : <%= totalPage %>)</h2>
 	<!-- 검색폼 -->
 	<form method="get">
 	<table border="1" width="90%">
@@ -92,13 +93,15 @@ if (boardLists.isEmpty()) {
 } else {
 	// 게시물이 있을 때
 	int virtualNum = 0;	// 화면상에서의 게시물 번호
+	int countNum = 0;
 	for (BoardDTO dto : boardLists) {
-		virtualNum = totalCount--;	// 전체 게시물 수에서 시작해 1씩 감소
+		//virtualNum = totalCount--;	// 전체 게시물 수에서 시작해 1씩 감소
+		virtualNum = totalCount - (((pageNum -1) * pageSize) + countNum++);
 %>
 	<tr align="center">
 		<td><%= virtualNum %></td>
 		<td align="left">
-			<a href="View.jsp?num=<%= dto.getNum() %>"><%= dto.getTitle() %>
+			<a href="../08Board/View.jsp?num=<%= dto.getNum() %>"><%= dto.getTitle() %>
 </a>
 		</td>
 		<td align="center"><%= dto.getId() %></td>	<!-- 작성자 아이디 -->
@@ -112,8 +115,13 @@ if (boardLists.isEmpty()) {
 	</table>
 	<!-- 목록 하단의 [글쓰기] 버튼 -->
 	<table border="1" width="90%">
-		<tr align="right">
-			<td><button type="button" onclick="location.href='Write.jsp';">글쓰기
+		<tr align="center">
+			<td>
+			<!-- 페이징 처리 -->
+			<%= BoardPage.pagingStr(totalCount, pageSize, blockPage, pageNum, request.getRequestURI()) %>
+			</td>
+			<!-- 글쓰기 버튼 -->
+			<td><button type="button" onclick="location.href='../08Board/Write.jsp';">글쓰기
 			</button></td>
 		</tr>
 	</table>
