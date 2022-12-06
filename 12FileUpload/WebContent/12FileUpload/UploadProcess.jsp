@@ -58,6 +58,11 @@
 	} catch (Exception e) {
 		e.printStackTrace();
 		request.setAttribute("errorMessage", "파일 업로드 오류");
+		
+		// 입력폼(화면) 페이지로 이동
 		request.getRequestDispatcher("FileUploadMain.jsp").forward(request, response);
+		
+		/* RequestDispatcher fw = request.getRequestDispatcher("FileUploadMain.jsp");
+		fw.forward(request, response); */
 	}
 %>

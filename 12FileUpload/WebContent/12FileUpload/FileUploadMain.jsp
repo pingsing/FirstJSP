@@ -38,6 +38,7 @@
 		<input type="checkbox" name="cate" value="음원" />음원 <br />
 	첨부파일 : <input type="file" name="attachedFile" /> <br/>
 	<input type="submit" value="전송하기" />
+	<a href="FileList.jsp">목록보기</a>
 	</form>
 </body>
 </html>
