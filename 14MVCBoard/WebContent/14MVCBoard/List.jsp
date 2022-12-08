@@ -50,14 +50,14 @@
 			<td> <!-- 번호 -->
 				${ map.totalCount - (((map.pageNum-1) * map.pageSize) + loop.index) }
 			</td>
-			<td> <!-- 제목(링크) -->
-			${ row.title }
+			<td align="left"> <!-- 제목(링크) -->
+				<a href="/14MVCBoard/view.do?idx=${ row.idx }">${ row.title }</a>
 			</td> 
 			<td>${ row.name }</td> <!-- 작성자 -->
 			<td>${ row.visitcount }</td> <!-- 조회수 -->
 			<td>${ row.postdate }</td> <!-- 작성일 -->
 			<td>	<!-- 첨부파일 -->
-			 [추후 기능 구현]
+			 <a href = "/14MVCBoard/download.do?ofile=${ row.ofile }&sfile=${ row.sfile }&idx=${ row.idx }">[Down]</a>
 			</td> 
 		</tr>
 		</c:forEach>
@@ -71,7 +71,7 @@
 			<td>
 			${ map.pagingImg }
 			</td>
-			<td width="100"><button type="button" onclick="location.href='../mvcboard/write.do';">글쓰기</td>
+			<td width="100"><button type="button" onclick="location.href='/14MVCBoard/write.do';">글쓰기</td>
 	</table>
 </body>
 </html>
