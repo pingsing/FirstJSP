@@ -147,7 +147,7 @@ public class ProductDAO {
 			
 			while (rs.next()) {
 				ProductVO product = new ProductVO();
-				product.setPseq(rs.getInt("pesq"));
+				product.setPseq(rs.getInt("pseq"));
 				product.setName(rs.getString("name"));
 				product.setPrice2(rs.getInt("price2"));
 				product.setImage(rs.getString("image"));
